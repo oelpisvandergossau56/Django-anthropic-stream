@@ -1,0 +1,39 @@
+<!-- chat/templates/chat/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+        <ul id="chat">
+            <!-- Chat-Nachrichten werden hier angezeigt -->
+        </ul>
+        <form class="chat-input" onsubmit="sendMessage(event)">
+            {% csrf_token %}
+            <textarea name="user_input" id="user_input" rows="1" autofocus placeholder="Type in Message..." ></textarea>
+            <button type="submit" class="send-btn" id="sendButton">
+                <i class="fas fa-location-arrow"></i>
+            </button>
+        </form>
+    </div>
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+    </script>
+</body>
+</html>
